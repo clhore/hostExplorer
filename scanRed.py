@@ -12,7 +12,7 @@ from myModule import JSON, customCrono
 # global variables
 ping = 'ping -c 1'
 IPXHILOS = 2
-tmpFile = 'tmp.json'
+tmpFile = 'tm.json'
 ttl_and_ip = list()
 
 def importData():
