@@ -3,9 +3,6 @@
 # library
 from datetime import datetime
 
-# export relevant data
-__all__ = ['CronoTime']
-
 # class CronoTime
 class CronoTime:
     def __init__(self):
