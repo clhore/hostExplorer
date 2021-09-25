@@ -1,0 +1,160 @@
+#!/usr/bin/bash
+
+# Author: clhore
+
+# Colours
+declare -r greenColour="\e[0;32m\033[1m"
+declare -r endColour="\033[0m\e[0m"
+declare -r redColour="\e[0;31m\033[1m"
+declare -r blueColour="\e[0;34m\033[1m"
+declare -r yellowColour="\e[0;33m\033[1m"
+declare -r purpleColour="\e[0;35m\033[1m"
+declare -r turquoiseColour="\e[0;36m\033[1m"
+declare -r grayColour="\e[0;37m\033[1m"
+
+# Global Variables
+declare -r awkfile='printTable.awk'
+declare -r awktmpfile='tmp.txt'
+declare -a tmpfile='tmp.json'
+declare -r priority_ports=(20 21 22 80 8080)
+declare -r dependencies=(python3 jq)
+
+# Defauld Variables
+explorer_mode='false'
+num_inicio=1
+num_final=255
+
+trap ctrl_c INT
+
+function ctrl_c(){
+	echo -e "\n\t${redColour}[!] Exiting...${endColour}" 
+        tput cnorm
+	rm 0 tmp.txt tmp.json 2>/dev/null
+        exit 1
+}
+
+function banner(){
+    echo -e "${greenColour}
+                      .
+                   %%%%%%%.
+               %%%%%%.  %%%%%%.
+          %%%%%%           *%%%%%%.
+       %%%%%                   .%%%%%%
+       %%%%%%%%               %%%%%%%%
+       %%   %%%%%%%      .%%%%%%%  %%%
+       %%       #%%%%%%%%%%%#      %%%    ${endColour}${grayColour}hostExplorer - Terminal explorer red${endColour}${greenColour}
+       %%           %%%%#          %%%    ${endColour}${blueColour}\t\t\t     by${endColour}${redColour} clhore${endColour}${greenColour}
+       %%            %%%           %%%
+       %%            %%%           %%%
+       %%%%%         %%%          %%%%
+         %%%%%%%     %%%     %%%%%%.
+             #%%%%%%%%%%%%%%%%%
+                  %%%%%%%%#
+                      .${endColour}\n"
+
+    for i in $(seq 1 80); do echo -ne "${redColour}-"; done; echo -ne "${endColour}"
+}
+
+function installPanel(){
+    banner
+    echo -e "\n${redColour}[!] Usage: ./htbExplorer${endColour}"
+    for i in $(seq 1 80); do echo -ne "${redColour}-"; done; echo -ne "${endColour}"
+}
+
+function dependencies(){
+	clear
+	installPanel
+	echo -e "\n"
+	read -rp "Cual es su OS >> Arch Linux[a/A] or Ubuntu[u/U]: " sys
+	declare -r vSystem=$(echo $sys)
+	echo -e "\n\t${yellowColour}[*]${endColour}${grayColour} Comprobando programas necesarios...${endColour}"
+		
+	for program in "${dependencies[@]}"; do
+		echo -ne "\n\t${yellowColour}[*]${endColour}${blueColour} Herramienta${endColour}${purpleColour} $program${endColour}${blueColour}...${endColour}"
+		personal
+		test -f /usr/bin/$program
+			
+		if [ "$(echo $?)" == "0" ]; then
+			echo -e " ${greenColour}(V)${endColour}"
+		else
+			echo -e " ${redColour}(X)${endColour}\n"
+			echo -e "\t${yellowColour}[*]${endColour}${grayColour} Instalando herramienta ${endColour}${blueColour}$program${endColour}${yellowColour}...${endColour}"	
+			if [ "$vSystem" == "a" ] || [ "$vSystem" == "A" ] || [ "$vSystem" == "arch" ]; then
+				sudo pacman -S $program
+			elif [ "$vSystem" == "u" ] || [ "$vSystem" == "U" ] || [ "$vSystem" == "ubuntu" ]; then
+				sudo apt install $program
+			else 
+				echo "error install"
+			fi
+			ctrl_C
+		fi; sleep 1
+	done
+	clear
+	sleep 0.5
+}
+
+function createTmpFile(){
+	printf '{\n\t"ip": "%s"\n,\t"start": %d\n,\t"finally": %d\n}' $ip_red $num_inicio $num_final > $tmpfile
+	
+	printf '' > $awktmpfile	
+}
+
+function scanPorts(){
+	python3 'scanPorts.py' personal        
+}
+
+function printTable(){
+	local host_N=$(jq ".host_N" $tmpfile)
+	
+	# block 1
+	for i in $(seq 1 18); do echo -ne "${redColour}-"; done; echo -ne "${endColour}"
+	echo -e "\n${redColour}[!] Nº host: $host_N${endColour}"
+	for i in $(seq 1 18); do echo -ne "${redColour}-"; done; echo -ne "${endColour}"
+	
+	# sep
+	echo -e "\n"
+
+	# block 2
+	awk -f $awkfile $awktmpfile
+
+}
+
+function helpPanel(){
+    banner
+    echo -e "\n${redColour}[!] Usage: ./htbExplorer${endColour}"
+    for i in $(seq 1 80); do echo -ne "${redColour}-"; done; echo -ne "${endColour}"
+    echo -e "\n\t${grayColour}[-i]${endColour}${yellowColour} Insert red IP Address ${endColour} ${blueColour}\t\t (Example: -i 192.168.188.0)${endColour}\n"
+    echo -e "\t${grayColour}[-s]${endColour}${yellowColour} Start number${endColour} ${blueColour}\t\t\t (Example: -s 1)${endColour}\n"
+    echo -e "\t${grayColour}[-f]${endColour}${yellowColour} Final number ${endColour} ${blueColour}\t\t\t (Example: -f 255)${endColour}\n"
+    tput cnorm; exit 1
+}
+
+#dependencies;
+parameter_counter=0
+while getopts ":e:i:s:f:h:" arg; do
+    case $arg in
+	e) explorer_mode=$OPTARG && let parameter_counter+=1;;
+        i) ip_red=$OPTARG && let parameter_counter+=1;;
+        s) num_inicio=$OPTARG && let parameter_counter+=1;;
+	f) num_final=$OPTARG && let parameter_counter+=1;;
+	h) helpPanel;;
+    esac
+done
+
+if [ "$parameter_counter" != "0" ]; then
+        banner
+else 
+	helpPanel
+fi
+
+if [ "$parameter_counter" -eq "3" ] || [ "$explorer_mode" != "false" ]; then
+	createTmpFile
+        sleep 0.4
+        echo -e "\n"
+        python3 scanRed.py personal
+	#scanPorts
+	clear
+	printTable
+fi
+
+rm 0 tmp.json tmp.txt tmps.txt 2>/dev/null; tput cnorm
