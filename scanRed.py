@@ -65,10 +65,10 @@ class Hilo(threading.Thread):
                         sp = True
                     else:
                         sp = False
-
-                    com_file = "{};{}".format(direccion, system)
-                    com_file = 'echo -e "\n{}" >> {}'.format(com_file, waktmpFile)
-                    os.system(com_file)
+                    if '-e' not in direccion:
+                        com_file = "{};{}".format(direccion, system)
+                        com_file = 'echo -e "\n{}" >> {}'.format(com_file, waktmpFile)
+                        os.system(com_file)
 
                         
 if __name__ == '__main__':
