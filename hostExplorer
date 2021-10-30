@@ -35,22 +35,14 @@ function ctrl_c(){
 
 function banner(){
     echo -e "${greenColour}
-                      .
-                   %%%%%%%.
-               %%%%%%.  %%%%%%.
-          %%%%%%           *%%%%%%.
-       %%%%%                   .%%%%%%
-       %%%%%%%%               %%%%%%%%
-       %%   %%%%%%%      .%%%%%%%  %%%
-       %%       #%%%%%%%%%%%#      %%%    ${endColour}${grayColour}hostExplorer - Terminal explorer red${endColour}${greenColour}
-       %%           %%%%#          %%%    ${endColour}${blueColour}\t\t\t     by${endColour}${redColour} clhore${endColour}${greenColour}
-       %%            %%%           %%%
-       %%            %%%           %%%
-       %%%%%         %%%          %%%%
-         %%%%%%%     %%%     %%%%%%.
-             #%%%%%%%%%%%%%%%%%
-                  %%%%%%%%#
-                      .${endColour}\n"
+  _               _   ______            _                     
+ | |             | | |  ____|          | |                    
+ | |__   ___  ___| |_| |__  __  ___ __ | | ___  _ __ ___ _ __ 
+ | '_ \ / _ \/ __| __|  __| \ \/ / '_ \| |/ _ \| '__/ _ \ '__|		${endColour}${grayColour}Heramienta para scaneo de hosts de una red${endColour}${greenColour}
+ | | | | (_) \__ \ |_| |____ >  <| |_) | | (_) | | |  __/ |   		${endColour}${blueColour}\t\t\t     by${endColour}${redColour} clhore${endColour}${greenColour}
+ |_| |_|\___/|___/\__|______/_/\_\ .__/|_|\___/|_|  \___|_|   
+                                 | |                          
+                                 |_|${endColour}\n"
 
     for i in $(seq 1 80); do echo -ne "${redColour}-"; done; echo -ne "${endColour}"
 }
