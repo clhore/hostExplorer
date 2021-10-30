@@ -36,7 +36,7 @@ function ctrl_c(){
 function banner(){
     echo -e "${greenColour}
   _               _   ______            _                     
- | |             | | |  ____|          | |                    By Adrian Lujan Munoz (aka clhore)
+ | |             | | |  ____|          | |            
  | |__   ___  ___| |_| |__  __  ___ __ | | ___  _ __ ___ _ __ 
  | '_ \ / _ \/ __| __|  __| \ \/ / '_ \| |/ _ \| '__/ _ \ '__|		
  | | | | (_) \__ \ |_| |____ >  <| |_) | | (_) | | |  __/ |   	${endColour}${blueColour}\t\t     by${endColour}${redColour} Adrian Lujan Munoz (aka clhore)${endColour}${greenColour}
