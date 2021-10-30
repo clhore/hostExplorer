@@ -36,10 +36,10 @@ function ctrl_c(){
 function banner(){
     echo -e "${greenColour}
   _               _   ______            _                     
- | |             | | |  ____|          | |                    
+ | |             | | |  ____|          | |                    By Adrian Lujan Munoz (aka clhore)
  | |__   ___  ___| |_| |__  __  ___ __ | | ___  _ __ ___ _ __ 
- | '_ \ / _ \/ __| __|  __| \ \/ / '_ \| |/ _ \| '__/ _ \ '__|		${endColour}${grayColour}Heramienta para scaneo de hosts de una red${endColour}${greenColour}
- | | | | (_) \__ \ |_| |____ >  <| |_) | | (_) | | |  __/ |   		${endColour}${blueColour}\t\t\t     by${endColour}${redColour} clhore${endColour}${greenColour}
+ | '_ \ / _ \/ __| __|  __| \ \/ / '_ \| |/ _ \| '__/ _ \ '__|		
+ | | | | (_) \__ \ |_| |____ >  <| |_) | | (_) | | |  __/ |   	${endColour}${blueColour}\t\t     by${endColour}${redColour} Adrian Lujan Munoz (aka clhore)${endColour}${greenColour}
  |_| |_|\___/|___/\__|______/_/\_\ .__/|_|\___/|_|  \___|_|   
                                  | |                          
                                  |_|${endColour}\n"
