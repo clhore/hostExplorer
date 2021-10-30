@@ -39,7 +39,7 @@ function banner(){
  | |             | | |  ____|          | |            
  | |__   ___  ___| |_| |__  __  ___ __ | | ___  _ __ ___ _ __ 
  | '_ \ / _ \/ __| __|  __| \ \/ / '_ \| |/ _ \| '__/ _ \ '__|		
- | | | | (_) \__ \ |_| |____ >  <| |_) | | (_) | | |  __/ |   	${endColour}${blueColour}\t\t     by${endColour}${redColour} Adrian Lujan Munoz (aka clhore)${endColour}${greenColour}
+ | | | | (_) \__ \ |_| |____ >  <| |_) | | (_) | | |  __/ |   	${endColour}${blueColour}     by${endColour}${redColour} Adrian Lujan Munoz (aka clhore)${endColour}${greenColour}
  |_| |_|\___/|___/\__|______/_/\_\ .__/|_|\___/|_|  \___|_|   
                                  | |                          
                                  |_|${endColour}\n"
