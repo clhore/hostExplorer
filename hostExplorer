@@ -72,9 +72,9 @@ function dependencies(){
 			echo -e " ${redColour}(X)${endColour}\n"
 			echo -e "\t${yellowColour}[*]${endColour}${grayColour} Instalando herramienta ${endColour}${blueColour}$program${endColour}${yellowColour}...${endColour}"	
 			if [ "$vSystem" == "a" ] || [ "$vSystem" == "A" ] || [ "$vSystem" == "arch" ]; then
-				sudo pacman -S $program
+				sudo pacman -S --noconfirm $program
 			elif [ "$vSystem" == "u" ] || [ "$vSystem" == "U" ] || [ "$vSystem" == "ubuntu" ]; then
-				sudo apt install $program
+				sudo apt-get install $program -y
 			else 
 				echo "error install"
 			fi
