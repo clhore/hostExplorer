@@ -63,6 +63,9 @@ class Hilo(threading.Thread):
                     elif ttl >= 65 and ttl <= 128:
                         system = "windows"
                         sp = True
+                    elif ttl >= 129 and ttl <= 254:
+                        system = "Solaris/AIX"
+                        sp = True
                     else:
                         sp = False
                     com_file = "{};{}".format(direccion, system)
